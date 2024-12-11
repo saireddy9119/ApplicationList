@@ -7,7 +7,6 @@ const Login = () => {
 
     const handleSuccess = (credentialResponse) => {
         const decoded = jwtDecode(credentialResponse?.credential);
-        console.log(decoded)
         if (decoded.email_verified) {
             localStorage.setItem("Email", decoded.email)
             navigate("/home");
@@ -19,7 +18,7 @@ const Login = () => {
     }
 
     return (<div className='flex items-center justify-center mt-32 flex-col'>
-        <h1 className='text-2xl font-bold text-blue-500 mb-8'>Google Login In</h1>
+        <h1 className='text-2xl font-bold text-blue-500 mb-8'>Application Finder</h1>
         <span>
             <GoogleOAuthProvider clientId="477207231953-eknq6f5srhs74mksj4k60fs4lh10q4eb.apps.googleusercontent.com">
                 <GoogleLogin
