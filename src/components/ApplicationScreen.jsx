@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { UseFetchData } from "../hooks/UseFetchData";
+import Header from "./Header";
 
 const ApplicationScreen = () => {
     const navigate = useNavigate()
     const TAB_KEY = 'ApplicationId';
     const { appId } = useParams();
+    const logOut = true;
 
     const [logout, setLogout] = useState(false)
     const [names, setNames] = useState([])
@@ -59,6 +61,9 @@ const ApplicationScreen = () => {
     const handleTabClose = () => {
         localStorage.removeItem(TAB_KEY);
     };
+    const handleLogOut = () => {
+        navigate("/")
+    }
 
 
     if (loading) return <div>Loading...</div>;
@@ -70,6 +75,7 @@ const ApplicationScreen = () => {
 
     return (
         <div>
+            <Header showLogout={logOut} onLogout={handleLogOut} />
             {(!logout) ? (<div className="flex flex-col items-center py-8">
                 <h1 className="text-2xl font-bold mb-4">App Screen</h1>
                 <p className="text-lg text-gray-700">

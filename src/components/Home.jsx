@@ -2,13 +2,17 @@
 import { useState, useEffect } from "react";
 import ApplicationListScreen from "./ApplicationListScreen";
 import { UseFetchData } from "../hooks/UseFetchData";
+import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
     const [search, setSearch] = useState("");
     const [names, setNames] = useState([]);
     const [filteredNames, setFilteredNames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [logout, setLogout] = useState(true)
 
     // Handle search input changes
     const handleSearchChange = (event) => {
@@ -21,6 +25,10 @@ const Home = () => {
         );
         setFilteredNames(filtered);
     };
+
+    const logOut = () => {
+        navigate("/")
+    }
 
     useEffect(() => {
         const fetchNames = async () => {
@@ -43,6 +51,7 @@ const Home = () => {
 
     return (
         <div>
+            <Header showLogout={logout} onLogout={logOut} />
             <form className="max-w-md mx-auto mt-12">
                 <label
                     htmlFor="default-search"
