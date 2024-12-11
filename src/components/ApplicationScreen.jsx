@@ -12,42 +12,32 @@ const ApplicationScreen = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(true)
     const showMultiTabAlert = () => {
-        // Show alert for multiple tab scenario
         const result = window.confirm("You are already logged into another tab. Do you want to log out from the other tab?");
 
         if (result) {
-            // Log out the other tab (remove the ApplicationId from localStorage)
             localStorage.removeItem(TAB_KEY);
-            // Redirect the current tab to Home Screen
             navigate('/');
         } else {
-            // Redirect the current tab to Home Screen
             navigate('/');
         }
     };
 
     useEffect(() => {
-        // Check if there's an active tab
         if (localStorage.getItem(TAB_KEY) === appId) {
             showMultiTabAlert()
         } else {
-            // Set current tab as active
             localStorage.setItem(TAB_KEY, appId);
-
-            // Clean up on component unmount or tab close
             window.addEventListener('beforeunload', handleTabClose);
 
             const fetchData = async () => {
                 try {
-                    // Replace with your actual API URL
-                    debugger
                     const data = await UseFetchData();
-                    setNames(data);  // Set the fetched data in the state
-                    setLoading(false);  // Set loading to false after the data is fetched
+                    setNames(data);
+                    setLoading(false);
                 } catch (err) {
                     console.error("Error fetching data:", err);
-                    setError('Error fetching data');  // Set error if the fetch fails
-                    setLoading(false);  // Stop loading in case of error
+                    setError('Error fetching data');
+                    setLoading(false);
                 }
             };
 
@@ -59,16 +49,14 @@ const ApplicationScreen = () => {
             };
         }
 
-        // Listen for changes to localStorage
-        window.addEventListener('storage', (event) => {
-            // if (event.key === TAB_KEY && event.newValue === appId) {
-            //     alert('Another tab has opened this application.');
-            // }
-        });
+        // window.addEventListener('storage', (event) => {
+        //     if (event.key === TAB_KEY && event.newValue === appId) {
+        //         alert('Another tab has opened this application.');
+        //     }
+        // });
     }, [appId]);
 
     const handleTabClose = () => {
-        // Remove the flag indicating this tab is active
         localStorage.removeItem(TAB_KEY);
     };
 
