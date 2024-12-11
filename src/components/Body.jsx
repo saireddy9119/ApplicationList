@@ -2,7 +2,7 @@ import React from 'react'
 import Login from './Login'
 import Home from './Home'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import ApplicationScreen from './ApplicationScreen1'
+import ApplicationScreen from './ApplicationScreen'
 
 
 const Body = () => {
